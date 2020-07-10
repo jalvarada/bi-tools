@@ -29,7 +29,7 @@ services:
       - ./docker/config/superset_container.env
       - ./docker/config/superset_database.env
     volumes:
-      - ./docker/superset/config:/home/jovyan/work/superset/config
+      - ./docker/superset/config:/home/superset/config
     ports:
       - 8088:8088
 

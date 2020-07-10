@@ -1,0 +1,67 @@
+version: "3"
+
+# All available services
+services:
+
+  # Computation
+  jupyter:
+    container_name: "bi_jupyter"
+    restart: "always"
+    image: josue/pyspark:dev
+    build: docker/services/jupyter
+    env_file:
+      - ./docker/config/jupyter.env
+      - ./docker/config/exercises_database.env
+    volumes:
+      - ./:/home/jovyan/work
+    ports:
+      - 8888:8888
+    command: jupyter notebook
+
+  # Visualization
+  superset:
+    container_name: "bi_superset"
+    restart: "always"
+    image: tylerfowler/superset:0.36
+    depends_on:
+      - postgres
+    env_file:
+      - ./docker/config/superset_container.env
+      - ./docker/config/superset_database.env
+    volumes:
+      - ./docker/superset/config:/home/jovyan/work/superset/config
+    ports:
+      - 8088:8088
+
+  # RDBMS
+  postgres:
+    container_name: "bi_postgres"
+    restart: "always"
+    image: postgres
+    env_file:
+      - ./docker/config/postgres.env
+      - ./docker/config/superset_database.env
+      - ./docker/config/exercises_database.env
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+      - ./docker/services/postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+
+  # DB Admin
+  pgAdmin:
+    container_name: "bi_pgadmin"
+    restart: always
+    image: dpage/pgadmin4
+    ports:
+        - "9090:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: josue@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+# Volumes to persist data
+volumes:
+  postgres_volume:
+  pgadmin:

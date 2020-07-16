@@ -64,7 +64,7 @@ services:
 
   # Scheduling
   airflow:
-    container_name: "{{cookiecutter.project_name}}_airflow"
+    container_name: "bi_airflow"
     restart: "always"
     image: puckel/docker-airflow:1.10.9
     depends_on:

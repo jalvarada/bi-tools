@@ -30,7 +30,7 @@ services:
       - ./docker/config/superset_container.env
       - ./docker/config/superset_database.env
     volumes:
-      - ./docker/serrvices/superset/config/:/home/superset/config
+      - ./docker/services/superset/config/:/home/superset/config
     ports:
       - 8088:8088
 
@@ -72,8 +72,9 @@ services:
     env_file:
       - ./docker/config/airflow_container.env
       - ./docker/config/superset.env
+      - ./docker/config/exercises_database.env
     volumes:
-      - ./scripts/dags/requirements.txt:/requirements.txt
+      #- ./scripts/dags/requirements.txt:/requirements.txt
       - ./scripts/dags/:/usr/local/airflow/dags
     ports:
       - 8080:8080

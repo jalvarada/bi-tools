@@ -71,8 +71,10 @@ services:
       - postgres
     env_file:
       - ./docker/config/airflow_container.env
+      - ./docker/config/postgres.env
       - ./docker/config/superset.env
       - ./docker/config/exercises_database.env
+      - ./docker/config/airflow_database.env
     volumes:
       #- ./scripts/dags/requirements.txt:/requirements.txt
       - ./scripts/dags/:/usr/local/airflow/dags

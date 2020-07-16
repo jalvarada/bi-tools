@@ -17,7 +17,33 @@ RUN apt-get update && \
     | tar --strip-components=1 -xz -C /usr/local
 
 # installing dependencies
-RUN pip install -r requirements.txt && \
+RUN pip install bokeh==2.1.1 &&\
+    pip install fastparquet==0.4.0 &&\
+    pip install geohash2==1.1 &&\
+    pip install geopandas==0.8.0 &&\
+    pip install geopy==2.0.0 &&\
+    pip install h3==3.6.3 &&\
+    pip install ipywidgets==7.5.1 &&\
+    pip install jupyter_bokeh==2.0.3 &&\
+    pip install keplergl==0.2.0 &&\
+    pip install nbconvert==5.6.1 &&\
+    pip install nbformat==5.0.7 &&\
+    pip install networkx==2.4 &&\
+    pip install osmnx==0.15.1 &&\
+    pip install pandas-profiling==2.8.0 &&\
+    pip install pendulum==2.1.1 &&\
+    pip install psycopg2==2.8.5 &&\
+    pip install pyparsing==2.4.7 &&\
+    pip install pyproj==2.6.1 &&\
+    pip install python-dateutil==2.8.1 &&\
+    pip install pytz==2020.1 &&\
+    pip install pyvis==0.1.8.1.1 &&\
+    pip install qgrid==1.3.1 &&\
+    pip install Rtree==0.9.4 &&\
+    pip install seaborn==0.10.1 &&\
+    pip install shapely==1.7.0 &&\
+    pip install jupytext==1.5.0 &&\
+    pip install jupyternotify==0.1.15 &&\
     # enable jupyter extensions
     jupyter contrib nbextension install --sys-prefix && \
     jupyter nbextension enable collapsible_headings/main --sys-prefix && \

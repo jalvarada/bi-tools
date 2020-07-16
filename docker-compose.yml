@@ -13,7 +13,8 @@ services:
       - ./docker/config/jupyter.env
       - ./docker/config/exercises_database.env
     volumes:
-      - ./:/home/jovyan/work
+      - ./:/home/jovyan
+      - - ./.jupyter:/home/jovyan/.jupyter
     ports:
       - 8888:8888
     command: jupyter notebook

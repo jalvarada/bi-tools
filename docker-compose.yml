@@ -14,7 +14,7 @@ services:
       - ./docker/config/exercises_database.env
     volumes:
       - ./:/home/jovyan
-      - - ./.jupyter:/home/jovyan/.jupyter
+      - ./docker/config/.jupyter:/home/jovyan/.jupyter
     ports:
       - 8888:8888
     command: jupyter notebook
@@ -61,6 +61,23 @@ services:
       PGADMIN_DEFAULT_PASSWORD: 1234
     volumes:
       - pgadmin:/var/lib/pgadmin
+
+  # Scheduling
+  airflow:
+    container_name: "{{cookiecutter.project_name}}_airflow"
+    restart: "always"
+    image: puckel/docker-airflow:1.10.9
+    depends_on:
+      - postgres
+    env_file:
+      - ./docker/config/airflow_container.env
+      - ./docker/config/superset.env
+    volumes:
+      - ./scripts/dags/requirements.txt:/requirements.txt
+      - ./scripts/dags/:/usr/local/airflow/dags
+    ports:
+      - 8080:8080
+    command: webserver
 
 # Volumes to persist data
 volumes:
